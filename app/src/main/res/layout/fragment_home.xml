@@ -123,7 +123,7 @@
                         android:id="@+id/imageView2"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:src="@drawable/androiddev"
                         app:srcCompat="@drawable/androiddev"
                         tools:srcCompat="@drawable/androiddev" />
 
@@ -157,7 +157,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:src="@drawable/projects"
                         app:srcCompat="@drawable/projects"
                         tools:srcCompat="@drawable/projects" />
 
@@ -191,7 +191,7 @@
                         android:id="@+id/imageView6"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:src="@drawable/webdev"
                         app:srcCompat="@drawable/webdev"
                         tools:srcCompat="@drawable/webdev" />
 
@@ -218,7 +218,7 @@
                         android:id="@+id/imageView8"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:src="@drawable/businessandmarketing"
                         app:srcCompat="@drawable/businessandmarketing"
                         tools:srcCompat="@drawable/businessandmarketing" />
 
