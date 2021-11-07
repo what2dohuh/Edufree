@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="Course Name"
                 android:textColor="#000000"
-                app:layout_constraintBottom_toTopOf="@+id/imageButton2"
+                app:layout_constraintBottom_toTopOf="@+id/likebtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
