@@ -238,6 +238,18 @@
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/VisitOurWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round"
+                android:text="Visit Our Website"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
         </LinearLayout>
     </ScrollView>
 
