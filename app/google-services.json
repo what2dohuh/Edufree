@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "255786001879",
+    "project_id": "edufreeteam1",
+    "storage_bucket": "edufreeteam1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255786001879:android:31b78df6a6e28857001792",
+        "android_client_info": {
+          "package_name": "com.devworm.edufree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255786001879-tlhkqb41ablfficf9au5v0h871q1aj2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devworm.edufree",
+            "certificate_hash": "5d655ea809ca27a00e234cd97cfecf541f57499c"
+          }
+        },
+        {
+          "client_id": "255786001879-hnv5hrpsgaeotglp6eu4bb2v685pbp1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsgyj3kRMe84OHIjUYGAOkTcyXWXb9UFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255786001879-hnv5hrpsgaeotglp6eu4bb2v685pbp1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".HomeFragment">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/greeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -17,6 +16,47 @@
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/searchinhome"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/round"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:ems="10"
+        android:hint="Search Courses....."
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/greeting" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainsearch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchinhome">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/viewuserimage"
@@ -28,7 +68,7 @@
         app:cardCornerRadius="230dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.874"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/greeting"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -36,37 +76,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_baseline_account_box_24" />
+            app:srcCompat="@drawable/eithicalhacking" />
     </androidx.cardview.widget.CardView>
 
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/searchinhome">
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/searchinhome"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/round"
-                android:drawableLeft="@drawable/ic_baseline_search_24"
-                android:ems="10"
-                android:hint="Search Courses....."
-                android:inputType="textPersonName"
-                android:padding="10dp" />
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/textView9"
@@ -96,6 +126,7 @@
                         android:id="@+id/imageView"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/eithicalhacking"
                         app:srcCompat="@drawable/eithicalhacking"
                         tools:srcCompat="@drawable/eithicalhacking" />
@@ -123,7 +154,8 @@
                         android:id="@+id/imageView2"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/androiddev"
                         app:srcCompat="@drawable/androiddev"
                         tools:srcCompat="@drawable/androiddev" />
 
@@ -157,7 +189,8 @@
                         android:id="@+id/imageView4"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/projects"
                         app:srcCompat="@drawable/projects"
                         tools:srcCompat="@drawable/projects" />
 
@@ -182,7 +215,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/webdev"
                     android:layout_width="150dp"
-                    android:layout_height="170dp"
+                    android:layout_height="180dp"
                     android:layout_margin="2dp"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="2dp">
@@ -191,7 +224,8 @@
                         android:id="@+id/imageView6"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/webdev"
                         app:srcCompat="@drawable/webdev"
                         tools:srcCompat="@drawable/webdev" />
 
@@ -217,8 +251,9 @@
                     <ImageView
                         android:id="@+id/imageView8"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:src="@drawable/eithicalhacking"
+                        android:layout_height="140dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/businessandmarketing"
                         app:srcCompat="@drawable/businessandmarketing"
                         tools:srcCompat="@drawable/businessandmarketing" />
 
@@ -233,6 +268,18 @@
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/VisitOurWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round"
+                android:text="Visit Our Website"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
         </LinearLayout>
     </ScrollView>
 
