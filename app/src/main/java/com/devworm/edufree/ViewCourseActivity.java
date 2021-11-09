@@ -46,6 +46,7 @@ String name,image,link,search,category,about;
                 onBackPressed();
             }
         });
+
         name = intent.getStringExtra("nameofthecourse");
         image = intent.getStringExtra("Thumbnail");
         link = intent.getStringExtra("link");
