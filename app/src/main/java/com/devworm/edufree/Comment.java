@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +66,48 @@ FirebaseFirestore firebaseFirestore;
         final FirestoreRecyclerOptions<commentModel> Options = new FirestoreRecyclerOptions.Builder<commentModel>()
                 .setQuery(query, commentModel.class)
                 .build();
+            Fire(Options);
 
+
+        sendbtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (firebaseAuth.getCurrentUser() !=null){
+                    commenting();
+                }
+                else {
+                    new AlertDialog.Builder(Comment.this)
+                            .setMessage("You Have To Login To Comment ")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(getApplicationContext(), Login.class));
+                                    finish();
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
+                }
+            }
+        });
+    }
+
+    private void commenting() {
+        String comments = yourcommentglobal2.getText().toString();
+        if (!comments.replaceAll("\\s","").isEmpty()) {
+            commentModel model = new commentModel(firebaseAuth.getCurrentUser().getDisplayName(), comments, null, firebaseAuth.getUid(), new Timestamp(new Date()));
+            firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).collection("Comments").add(model);
+            Adapter.startListening();
+            recyclerView.smoothScrollToPosition(Adapter.getItemCount());
+        }
+        comments = null;
+        yourcommentglobal2.setText("");
+    }
+
+    private void Fire(FirestoreRecyclerOptions<commentModel> Options) {
         Adapter = new FirestoreRecyclerAdapter<commentModel, commentViewHolder>(Options) {
             @NonNull
             @Override
@@ -74,45 +118,27 @@ FirebaseFirestore firebaseFirestore;
 
             @Override
             protected void onBindViewHolder(@NonNull final commentViewHolder commentViewHolder, int i, @NonNull final commentModel commentModel) {
-             if (firebaseAuth.getCurrentUser().getUid().equals(commentModel.id)){
-                 commentViewHolder.othersname.setText("You:");
-             }else {
-                 commentViewHolder.othersname.setText(commentModel.othersname+":");
-             }
-                commentViewHolder.othercomments.setText(commentModel.othercomments);
+
+                CharSequence date = DateFormat.format("EEEE,MMM d,yyyy h:mm:ss a ", commentModel.timestamp.toDate());
+                commentViewHolder.Date.setText(date);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    if (firebaseAuth.getCurrentUser().getUid().equals(commentModel.id)) {
+                        commentViewHolder.othersname.setText("You:");
+                    } else {
+                        commentViewHolder.othersname.setText(commentModel.othersname + ":");
+                    }
+                    commentViewHolder.othercomments.setText(commentModel.othercomments);
+                }else {
+                    commentViewHolder.othersname.setText(commentModel.othersname + ":");
+                    commentViewHolder.othercomments.setText(commentModel.othercomments);
+                }
             }
 
         };
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Adapter.startListening();
         recyclerView.setAdapter(Adapter);
-
-        recyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.smoothScrollToPosition(Adapter.getItemCount());
-            }
-        });
-        sendbtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String comments = yourcommentglobal2.getText().toString();
-                if (!comments.replaceAll("\\s","").isEmpty()) {
-                    commentModel model = new commentModel(firebaseAuth.getCurrentUser().getDisplayName(), comments, null, firebaseAuth.getUid(), new Timestamp(new Date()));
-                    firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).collection("Comments").add(model);
-                    Adapter.startListening();
-                    recyclerView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            recyclerView.smoothScrollToPosition(Adapter.getItemCount());
-                        }
-                    });
-                }
-                comments = null;
-                yourcommentglobal2.setText("");
-            }
-        });
+        recyclerView.smoothScrollToPosition(Adapter.getItemCount());
     }
 
     @Override

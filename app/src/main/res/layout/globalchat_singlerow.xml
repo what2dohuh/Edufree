@@ -6,15 +6,25 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
 
-    <ImageView
-        android:id="@+id/othersprofilepic"
-        android:layout_width="46dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/othercomments"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viewuserimage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        app:cardCornerRadius="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/eithicalhacking" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/othersprofilepic"
+            android:layout_width="46dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/eithicalhacking" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/othersname"
@@ -23,15 +33,14 @@
         android:layout_marginStart="8dp"
         android:text="Deep:"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/othersprofilepic"
+        app:layout_constraintStart_toEndOf="@+id/viewuserimage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/othercomments"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/onepoint"
         android:ems="10"
         android:padding="10dp"
@@ -39,7 +48,20 @@
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewuserimage" />
+
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/othercomments" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
