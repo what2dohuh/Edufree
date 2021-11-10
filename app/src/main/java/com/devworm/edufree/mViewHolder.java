@@ -19,9 +19,7 @@ public class mViewHolder extends RecyclerView.ViewHolder {
         ThubnailCourse = itemView.findViewById(R.id.imageView3);
         coursename = itemView.findViewById(R.id.coursename);
         linearLayout = itemView.findViewById(R.id.linearLayout);
-        like = itemView.findViewById(R.id.like);
         aboutthecourse = itemView.findViewById(R.id.aboutthecourse);
-        likebtn = itemView.findViewById(R.id.likebtn);
         comment = itemView.findViewById(R.id.comment);
         savecourse = itemView.findViewById(R.id.savecourse);
     }

@@ -18,11 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,6 +49,11 @@ FirebaseFirestore firebaseFirestore;
         initial(v);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() !=null) {
+            greeting.setText("Hello, " + firebaseAuth.getCurrentUser().getDisplayName());
+        }else {
+            greeting.setText("Hello, User");
+        }
         androiddev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +103,6 @@ FirebaseFirestore firebaseFirestore;
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String search = s.toString().toLowerCase().replaceAll("\\s+", "");
                 searching(search);
-
             }
 
             @Override
@@ -145,6 +146,15 @@ FirebaseFirestore firebaseFirestore;
                             }
                         });
                     }
+                    mViewHolder.comment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), Comment.class);
+                            intent.putExtra("about", model.about);
+                            intent.putExtra("nameofthecourse", model.nameofthecourse);
+                            startActivity(intent);
+                        }
+                    });
                     mViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -156,6 +166,7 @@ FirebaseFirestore firebaseFirestore;
                             startActivity(intent);
                         }
                     });
+
                 }
             };
             Adapter.startListening();

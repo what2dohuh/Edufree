@@ -86,6 +86,15 @@ String categories;
                         }
                     });
                 }
+                mViewHolder.comment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),Comment.class);
+                        intent.putExtra("about",model.about);
+                        intent.putExtra("nameofthecourse",model.nameofthecourse);
+                        startActivity(intent);
+                    }
+                });
                 mViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

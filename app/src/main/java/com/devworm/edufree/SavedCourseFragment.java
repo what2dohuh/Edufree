@@ -96,7 +96,15 @@ if (firebaseAuth.getCurrentUser() != null) {
                             }
                         }
                     });
-                }
+                } mViewHolder.comment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), Comment.class);
+                        intent.putExtra("about", model.about);
+                        intent.putExtra("nameofthecourse", model.nameofthecourse);
+                        startActivity(intent);
+                    }
+                });
                 mViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -154,6 +162,15 @@ if (firebaseAuth.getCurrentUser() != null) {
                         intent.putExtra("nameofthecourse",model.nameofthecourse);
                         intent.putExtra("Thumbnail",model.coursethubnail);
                         intent.putExtra("link",model.link);
+                        startActivity(intent);
+                    }
+                });
+                mViewHolder.comment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), Comment.class);
+                        intent.putExtra("about", model.about);
+                        intent.putExtra("nameofthecourse", model.nameofthecourse);
                         startActivity(intent);
                     }
                 });

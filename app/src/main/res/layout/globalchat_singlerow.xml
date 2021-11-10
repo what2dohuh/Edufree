@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
 
     <ImageView
         android:id="@+id/othersprofilepic"
@@ -13,31 +14,29 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/othercomments"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/othersname"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/eithicalhacking" />
 
     <TextView
         android:id="@+id/othersname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Deep:"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/othersprofilepic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/othercomments"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/onepoint"
         android:ems="10"
-        android:text="You suck..."
-        android:textColor="@android:color/black"
-        android:inputType="textPersonName"
         android:padding="10dp"
+        android:text="you suck"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
