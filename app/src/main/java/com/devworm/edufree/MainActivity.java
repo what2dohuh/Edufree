@@ -3,13 +3,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainActivity extends AppCompatActivity {
 FrameLayout frameLayout;
-BottomNavigationView bottomNavigationView;
+ChipNavigationBar bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +25,11 @@ BottomNavigationView bottomNavigationView;
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new HomeFragment()).commit();
         }
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public void onItemSelected(int i) {
                 Fragment temp = null;
-                switch (item.getItemId()){
+                switch (i) {
                     case R.id.account:
                         temp = new AccountFragment();
                         break;
@@ -41,9 +43,30 @@ BottomNavigationView bottomNavigationView;
                         temp = new SavedCourseFragment();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,temp).commit();
-                return true;
+                getSupportFragmentManager().beginTransaction() .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,  // popEnter
+                        R.anim.slide_out  // popExit
+                ).replace(R.id.frameLayout,temp).commit();
             }
         });
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            onBackPressed();
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (bottomNavigationView.getSelectedItemId() == R.id.home){
+            super.onBackPressed();
+        }
+        else {
+            bottomNavigationView.setItemSelected(R.id.home,true);
+        }
     }
 }

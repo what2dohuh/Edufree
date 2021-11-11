@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home" />
-    <item
-        android:id="@+id/chat"
-        android:icon="@drawable/ic_baseline_chat_24"
-        android:title="Chat" />
-    <item
-        android:id="@+id/saved"
-        android:icon="@drawable/ic_baseline_bookmarks_24"
-        android:title="Saved" />
-    <item
-        android:id="@+id/account"
-        android:icon="@drawable/ic_baseline_account_box_24"
-        android:title="Account" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+app:cnb_unselectedColor="#666666">
+<item
+    android:id="@+id/home"
+    android:icon="@drawable/ic_baseline_home_24"
+    android:title="Home"
+    app:cnb_backgroundColor="#000000"
+    app:cnb_iconColor="#FFFFFF"
+    app:cnb_iconTintMode="src_in"
+    app:cnb_textColor="#FFFFFF" />
+<item
+    android:id="@+id/chat"
+    android:icon="@drawable/ic_baseline_chat_24"
+    android:title="Chat"
+    app:cnb_backgroundColor="#000000"
+    app:cnb_iconColor="#FFFFFF"
+    app:cnb_iconTintMode="src_in"
+    app:cnb_textColor="#FFFFFF" />
+<item
+    android:id="@+id/saved"
+    android:icon="@drawable/ic_baseline_bookmarks_24"
+    android:title="Saved"
+    app:cnb_backgroundColor="#000000"
+    app:cnb_iconColor="#FFFFFF"
+    app:cnb_iconTintMode="src_in"
+    app:cnb_textColor="#FFFFFF" />
+<item
+    android:id="@+id/account"
+    android:icon="@drawable/ic_baseline_account_box_24"
+    android:title="Account"
+    app:cnb_backgroundColor="#000000"
+    app:cnb_iconColor="#FFFFFF"
+    app:cnb_iconTintMode="src_in"
+    app:cnb_textColor="#FFFFFF" />
 </menu>

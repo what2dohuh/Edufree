@@ -105,25 +105,13 @@
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/logoutcard"
+            <Button
+                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                app:cardBackgroundColor="#64B7CC"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="3dp">
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Log Out"
-                    android:textColor="#221D1D"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </androidx.cardview.widget.CardView>
+                android:background="@drawable/round"
+                android:text="Log Out" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

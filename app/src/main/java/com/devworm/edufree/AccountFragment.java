@@ -1,5 +1,6 @@
 package com.devworm.edufree;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,27 +16,39 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment {
-    CardView logout;
+    Button logout;
     ImageView profileimage;
     TextView nameinprofie,gmailinprofile;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
     Uri filepath;
+    StorageReference storageReference;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v= inflater.inflate(R.layout.fragment_account, container, false);
-        logout = v.findViewById(R.id.logoutcard);
+        logout = v.findViewById(R.id.logout);
         nameinprofie = v.findViewById(R.id.nameinprofie);
         profileimage = v.findViewById(R.id.profileimage);
         gmailinprofile = v.findViewById(R.id.gmailinprofile);
         firebaseAuth=FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
        profileimage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -62,17 +75,29 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
         return v;
     }
     public void show(){
         //Check If Has Profile Pic.
+        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("Details").document("lol").
+                get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                if (snapshot != null) {
+                    if (snapshot.get("ProfilePic") != null) {
+                        HashMap<String, Object> m = new HashMap<>();
+                        m.put("Details", snapshot.getData().get("ProfilePic"));
+                        String image = m.get("Details").toString();
+                        Picasso.get().load(image).into(profileimage);
+                    } else {
+                        Toast.makeText(getContext(), "Error !", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        show();
 
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -83,7 +108,43 @@ public class AccountFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        show();
+    }
+
     private void uploadimage() {
         // Upload Image
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Uploading");
+        progressDialog.show();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        final StorageReference update = storageReference.child("Profilepic/"+"img"+System.currentTimeMillis());
+        update.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                update.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        HashMap<String,Object> map = new HashMap<>();
+                        map.put("ProfilePic",uri.toString());
+                        HashMap<String,Object> map2 = new HashMap<>();
+                        map.put("othersprofilepic",uri.toString());
+
+                        firebaseFirestore.collection("Stuff").document().collection("Comments").document().update(map2);
+                        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("Details").document("lol").update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                progressDialog.dismiss();
+                            }
+                        });
+                        Picasso.get().load(uri).into(profileimage);
+                        filepath = null;
+                    }
+                });
+            }
+        });
+
     }
 }

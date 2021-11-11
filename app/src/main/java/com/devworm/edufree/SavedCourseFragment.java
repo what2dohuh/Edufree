@@ -1,11 +1,14 @@
 package com.devworm.edufree;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +34,7 @@ RecyclerView savedcourserec;
 EditText searchinhome2;
 FirebaseFirestore firebaseFirestore;
 FirebaseAuth firebaseAuth;
+Boolean save = false;
 FirestoreRecyclerAdapter<Model, mViewHolder> Adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,10 +121,56 @@ if (firebaseAuth.getCurrentUser() != null) {
                         startActivity(intent);
                     }
                 });
+                mViewHolder.savecourse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (firebaseAuth.getCurrentUser() == null) {
+                            new AlertDialog.Builder(getContext())
+                                    .setMessage("You Have To Login To Save Courses")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            startActivity(new Intent(getContext(), Login.class));
+                                            getActivity().finish();
+                                        }
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).show();
+                        } else {
+                            save = true;
+                            if (save) {  firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if (save) {
+                                        if (value.exists()) {
+                                            save = false;
+                                            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).delete();
+                                            mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_bookmarks_24);
+                                        } else {
+                                            save = false;
+                                            Model modelof = new Model(model.nameofthecourse, model.coursethubnail, model.link, model.search, model.category, model.category);
+                                            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).set(modelof);
+                                            mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_book_24);
+                                        }
+                                        save = false;
+                                    }
+                                }
+                            });
+                            }
+                        }
+                    }
+                });
+
             }
         };
         Adapter.startListening();
         savedcourserec.setAdapter(Adapter);
+        savedcourserec.addItemDecoration(new
+                DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));
     }
 
     private void show() {
@@ -174,10 +224,56 @@ if (firebaseAuth.getCurrentUser() != null) {
                         startActivity(intent);
                     }
                 });
+                mViewHolder.savecourse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (firebaseAuth.getCurrentUser() == null) {
+                            new AlertDialog.Builder(getContext())
+                                    .setMessage("You Have To Login To Save Courses")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            startActivity(new Intent(getContext(), Login.class));
+                                           getActivity().finish();
+                                        }
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).show();
+                        } else {
+                            save = true;
+                            if (save) {  firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if (save) {
+                                        if (value.exists()) {
+                                            save = false;
+                                            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).delete();
+                                            mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_bookmarks_24);
+                                        } else {
+                                            save = false;
+                                            Model modelof = new Model(model.nameofthecourse, model.coursethubnail, model.link, model.search, model.category, model.category);
+                                            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).set(modelof);
+                                            mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_book_24);
+                                        }
+                                        save = false;
+                                    }
+                                }
+                            });
+                            }
+                        }
+                    }
+                });
             }
         };
         savedcourserec.setLayoutManager(new LinearLayoutManager(getContext()));
         Adapter.startListening();
         savedcourserec.setAdapter(Adapter);
+        savedcourserec.setAdapter(Adapter);
+        savedcourserec.addItemDecoration(new
+                DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));
     }
 }

@@ -66,14 +66,14 @@ FirebaseFirestore firebaseFirestore;
 
                     final HashMap<String,Object> map = new HashMap<>();
                     map.put("Name",Name);
+                    map.put("ProfilePic",null);
                     map.put("gmail",Gmail);
                     map.put("password",Password);
-                    final FirebaseAuth user = FirebaseAuth.getInstance();
 
                     FirebaseUser us = firebaseAuth.getCurrentUser();
                     UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(Name).build();
                     us.updateProfile(userProfileChangeRequest);
-                    DocumentReference docref =firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("Details").document();
+                    DocumentReference docref =firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("Details").document("lol");
                     docref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
