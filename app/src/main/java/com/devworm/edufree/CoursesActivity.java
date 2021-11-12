@@ -141,7 +141,7 @@ Boolean save;
                                             mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_bookmarks_24);
                                         } else {
                                             save = false;
-                                            Model modelof = new Model(model.nameofthecourse, model.coursethubnail, model.link, model.search, model.category, model.category);
+                                            Model modelof = new Model(model.nameofthecourse, model.coursethubnail, model.link, model.search, model.category, model.about);
                                             firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).set(modelof);
                                             mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_book_24);
                                         }
@@ -242,7 +242,7 @@ Boolean save;
                                                     mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_bookmarks_24);
                                                 } else {
                                                     save = false;
-                                                    Model modelof = new Model(model.nameofthecourse, model.coursethubnail, model.link, model.search, model.category, model.category);
+                                                    Model modelof = new Model(model.nameofthecourse, model.coursethubnail, model.link, model.search, model.category, model.about);
                                                     firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).set(modelof);
                                                     mViewHolder.savecourse.setImageResource(R.drawable.ic_baseline_book_24);
                                                 }

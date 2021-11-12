@@ -55,15 +55,15 @@ String image;
         setContentView(R.layout.activity_comment);
 
         initial();
-
         backbtninviewactivity2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
-        showpropic();
+        if (firebaseAuth.getCurrentUser() != null) {
+            showpropic();
+        }
         Query query = firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).collection("Comments").orderBy("timestamp",Query.Direction.ASCENDING);
 
         final FirestoreRecyclerOptions<commentModel> Options = new FirestoreRecyclerOptions.Builder<commentModel>()
@@ -158,6 +158,10 @@ String image;
 
                 CharSequence date = DateFormat.format("EEEE,MMM d,yyyy h:mm:ss a ", commentModel.timestamp.toDate());
                 commentViewHolder.Date.setText(date);
+              //  Toast.makeText(Comment.this, commentModel.othersname, Toast.LENGTH_SHORT).show();
+                if (!commentModel.othercomments.isEmpty()){
+                    empty.setVisibility(View.GONE);
+                }
                 if (firebaseAuth.getCurrentUser() != null) {
                     if (firebaseAuth.getCurrentUser().getUid().equals(commentModel.id)) {
                         commentViewHolder.othersname.setText("You:");
@@ -179,17 +183,18 @@ String image;
         recyclerView.setAdapter(Adapter);
         recyclerView.smoothScrollToPosition(Adapter.getItemCount());
 
-        firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).
-                get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot snapshot) {
-                if (snapshot != null) {
-                    empty.setVisibility(View.INVISIBLE);
-                }else {
-                    empty.setVisibility(View.VISIBLE);
-                }
-            }
-        });    }
+//        firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).
+//                get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot snapshot) {
+//                if (snapshot != null) {
+//                    empty.setVisibility(View.INVISIBLE);
+//                }else {
+//                    empty.setVisibility(View.VISIBLE);
+//                }
+//            }
+//       });
+     }
 
     @Override
     protected void onStart() {

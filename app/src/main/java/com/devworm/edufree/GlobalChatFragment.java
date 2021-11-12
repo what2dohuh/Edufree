@@ -58,7 +58,9 @@ String image;
         final FirestoreRecyclerOptions<commentModel> Options = new FirestoreRecyclerOptions.Builder<commentModel>()
                 .setQuery(query, commentModel.class)
                 .build();
-        showpropic();
+        if (firebaseAuth.getCurrentUser() != null) {
+            showpropic();
+        }
         Adapter = new FirestoreRecyclerAdapter<commentModel, commentViewHolder>(Options) {
             @NonNull
             @Override

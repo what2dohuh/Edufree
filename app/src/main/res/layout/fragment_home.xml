@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginStart="4dp"
+        android:fontFamily="@font/comfortaamedium"
         android:text="Deep"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginStart="4dp"
+        android:fontFamily="@font/latoitalic"
         android:text="Hello,"
         android:textColor="#000000"
         android:textSize="18sp"
@@ -117,6 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:fontFamily="@font/comfortaamedium"
                 android:text="Categories"
                 android:textColor="#000000"
                 android:textSize="18sp" />

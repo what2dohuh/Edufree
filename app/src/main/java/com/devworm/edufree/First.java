@@ -17,7 +17,8 @@ FirebaseAuth firebaseAuth;
         if (firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }else {
-            startActivity(new Intent(getApplicationContext(),Register.class));
+            startActivity(new Intent(getApplicationContext(),LoginOrRegister.class));
         }
+        finish();
     }
 }

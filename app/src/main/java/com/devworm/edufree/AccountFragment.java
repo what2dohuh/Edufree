@@ -32,7 +32,7 @@ import java.util.HashMap;
 import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment {
-    Button logout;
+    Button logout,RegisterBtnAc;
     ImageView profileimage;
     TextView nameinprofie,gmailinprofile;
     FirebaseAuth firebaseAuth;
@@ -46,19 +46,26 @@ public class AccountFragment extends Fragment {
         logout = v.findViewById(R.id.logout);
         nameinprofie = v.findViewById(R.id.nameinprofie);
         profileimage = v.findViewById(R.id.profileimage);
+        RegisterBtnAc = v.findViewById(R.id.RegisterBtnAc);
         gmailinprofile = v.findViewById(R.id.gmailinprofile);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-       profileimage.setOnClickListener(new View.OnClickListener() {
+        if (firebaseAuth.getCurrentUser() != null){
+            show();
+        }
+        profileimage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent intent = new Intent();
-               intent.setType("image/*");
-               intent.setAction(Intent.ACTION_GET_CONTENT);
-               startActivityForResult(intent,101);
+               if (firebaseAuth.getCurrentUser() != null) {
+                   Intent intent = new Intent();
+                   intent.setType("image/*");
+                   intent.setAction(Intent.ACTION_GET_CONTENT);
+                   startActivityForResult(intent, 101);
+               }else{
+                   Toast.makeText(getContext(), "Login Or Register To Change Profile Picture", Toast.LENGTH_SHORT).show();
+               }
            }
        });
-
         if (firebaseAuth.getCurrentUser() != null) {
             nameinprofie.setText(firebaseAuth.getCurrentUser().getDisplayName());
             gmailinprofile.setText(firebaseAuth.getCurrentUser().getEmail());
@@ -67,12 +74,24 @@ public class AccountFragment extends Fragment {
             gmailinprofile.setText("None");
             nameinprofie.setText("Anonymous");
         }
-        logout.setOnClickListener(new View.OnClickListener() {
+        if (firebaseAuth.getCurrentUser() != null) {
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(getActivity(), Login.class));
+                    getActivity().finish();
+                }
+            });
+        }else {
+            logout.setVisibility(View.GONE);
+            RegisterBtnAc.setVisibility(View.VISIBLE);
+        }
+        RegisterBtnAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
-                startActivity(new Intent(getActivity(),Login.class));
-                getActivity().finish();
+                startActivity(new Intent(getContext(),Register.class));
+
             }
         });
 
@@ -91,7 +110,6 @@ public class AccountFragment extends Fragment {
                         String image = m.get("Details").toString();
                         Picasso.get().load(image).into(profileimage);
                     } else {
-                        Toast.makeText(getContext(), "Error !", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -106,12 +124,6 @@ public class AccountFragment extends Fragment {
             Picasso.get().load(filepath).into(profileimage);
             uploadimage();
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        show();
     }
 
     private void uploadimage() {
@@ -129,10 +141,6 @@ public class AccountFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("ProfilePic",uri.toString());
-                        HashMap<String,Object> map2 = new HashMap<>();
-                        map.put("othersprofilepic",uri.toString());
-
-                        firebaseFirestore.collection("Stuff").document().collection("Comments").document().update(map2);
                         firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("Details").document("lol").update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -141,6 +149,7 @@ public class AccountFragment extends Fragment {
                         });
                         Picasso.get().load(uri).into(profileimage);
                         filepath = null;
+                        progressDialog.dismiss();
                     }
                 });
             }

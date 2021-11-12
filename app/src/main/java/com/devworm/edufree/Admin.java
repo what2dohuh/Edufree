@@ -105,7 +105,7 @@ boolean androiddev,ethicalhacking,project,webdev,businessandmarketing;
     private void Uploading(final ProgressDialog progressDialog) {
         progressDialog.show();
         storageReference = FirebaseStorage.getInstance().getReference();
-        final StorageReference uploader = storageReference.child("pdf/"+"pdf"+System.currentTimeMillis());
+        final StorageReference uploader = storageReference.child("Thumbnail;/"+"thumbnail"+System.currentTimeMillis());
         uploader.putFile(CourseThubnail).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

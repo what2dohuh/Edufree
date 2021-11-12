@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 public class ViewCourseActivity extends AppCompatActivity {
 ImageButton backbtninviewactivity,savecoursebtn;
 ImageView thumbnail;
-TextView aboutthecourseviewcourse,Coursename;
+TextView aboutthecourseviewcourse,Coursename,Category;
 Button downloadbtn,visitOurWebsite;
 Intent intent;
 FirebaseAuth firebaseAuth;
@@ -46,12 +46,12 @@ String name,image,link,search,category,about;
                 onBackPressed();
             }
         });
-
         name = intent.getStringExtra("nameofthecourse");
         image = intent.getStringExtra("Thumbnail");
         link = intent.getStringExtra("link");
         search = name.toLowerCase().replaceAll("\\s+", "");
         category = intent.getStringExtra("category");
+        Category.setText("Category: "+category);
         about = intent.getStringExtra("about");
         Coursename.setText(name);
         Picasso.get().load(image).into(thumbnail);
@@ -125,6 +125,7 @@ String name,image,link,search,category,about;
     private void initial() {
         backbtninviewactivity = findViewById(R.id.backbtninviewactivity);
         savecoursebtn = findViewById(R.id.savecoursebtn);
+        Category = findViewById(R.id.category);
         thumbnail = findViewById(R.id.thumbnail);
         Coursename = findViewById(R.id.Coursename);
         aboutthecourseviewcourse = findViewById(R.id.aboutthecourseviewcourse);

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -34,6 +35,7 @@ RecyclerView savedcourserec;
 EditText searchinhome2;
 FirebaseFirestore firebaseFirestore;
 FirebaseAuth firebaseAuth;
+ImageView em;
 Boolean save = false;
 FirestoreRecyclerAdapter<Model, mViewHolder> Adapter;
     @Override
@@ -41,6 +43,7 @@ FirestoreRecyclerAdapter<Model, mViewHolder> Adapter;
         View v= inflater.inflate(R.layout.fragment_saved_course, container, false);
         searchinhome2 = v.findViewById(R.id.searchinhome2);
         savedcourserec = v.findViewById(R.id.savedcourserec);
+        em = v.findViewById(R.id.em);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 if (firebaseAuth.getCurrentUser() != null) {
@@ -88,6 +91,9 @@ if (firebaseAuth.getCurrentUser() != null) {
             protected void onBindViewHolder(@NonNull final mViewHolder mViewHolder, int i, @NonNull final Model model) {
                 mViewHolder.aboutthecourse.setText(model.about);
                 mViewHolder.coursename.setText(model.nameofthecourse);
+                if (!model.about.isEmpty()){
+                    em.setVisibility(View.GONE);
+                }
                 Picasso.get().load(model.coursethubnail).into(mViewHolder.ThubnailCourse);
                 if (firebaseAuth.getCurrentUser() !=null) {
                     firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -191,6 +197,9 @@ if (firebaseAuth.getCurrentUser() != null) {
             protected void onBindViewHolder(@NonNull final mViewHolder mViewHolder, int i, @NonNull final Model model) {
                 mViewHolder.aboutthecourse.setText(model.about);
                 mViewHolder.coursename.setText(model.nameofthecourse);
+                if (!model.about.isEmpty()){
+                    em.setVisibility(View.GONE);
+                }
                 Picasso.get().load(model.coursethubnail).into(mViewHolder.ThubnailCourse);
                 if (firebaseAuth.getCurrentUser() !=null) {
                     firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("SavedCourses").document(model.nameofthecourse).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -212,6 +221,7 @@ if (firebaseAuth.getCurrentUser() != null) {
                         intent.putExtra("nameofthecourse",model.nameofthecourse);
                         intent.putExtra("Thumbnail",model.coursethubnail);
                         intent.putExtra("link",model.link);
+                        intent.putExtra("category",model.category);
                         startActivity(intent);
                     }
                 });
@@ -270,7 +280,6 @@ if (firebaseAuth.getCurrentUser() != null) {
         };
         savedcourserec.setLayoutManager(new LinearLayoutManager(getContext()));
         Adapter.startListening();
-        savedcourserec.setAdapter(Adapter);
         savedcourserec.setAdapter(Adapter);
         savedcourserec.addItemDecoration(new
                 DividerItemDecoration(getContext(),
