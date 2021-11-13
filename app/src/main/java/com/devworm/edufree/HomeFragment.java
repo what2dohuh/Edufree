@@ -1,5 +1,6 @@
 package com.devworm.edufree;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,6 +52,7 @@ FirestoreRecyclerAdapter<Model, mViewHolder> Adapter;
 FirebaseFirestore firebaseFirestore;
 String Image;
 Boolean save = false;
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
@@ -94,6 +96,7 @@ Boolean save = false;
                 intent.putExtra("categories","BusinessAndMarketing");
                 startActivity(intent);            }
         });
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +105,9 @@ Boolean save = false;
         });
         if (firebaseAuth.getCurrentUser() !=null){
             showpropic();
+            if(firebaseAuth.getCurrentUser().getEmail().equals("edufree@gmail.com")){
+                floatingActionButton.setVisibility(View.VISIBLE);
+            }
         }
         mainsearch.setLayoutManager(new LinearLayoutManager(getContext()));
         searchinhome.addTextChangedListener(new TextWatcher() {
