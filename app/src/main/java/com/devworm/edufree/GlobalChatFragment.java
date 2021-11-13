@@ -54,12 +54,15 @@ String image;
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         Query query = firebaseFirestore.collection("GlobalChat").orderBy("timestamp",Query.Direction.ASCENDING);
+        image = "https://firebasestorage.googleapis.com/v0/b/edufreeteam1.appspot.com/o/image%2Feithicalhacking.png?alt=media&token=324f7542-6556-40ac-be44-c592707bb4cf";
 
         final FirestoreRecyclerOptions<commentModel> Options = new FirestoreRecyclerOptions.Builder<commentModel>()
                 .setQuery(query, commentModel.class)
                 .build();
         if (firebaseAuth.getCurrentUser() != null) {
             showpropic();
+        }else {
+            Picasso.get().load(image).into(profileimage);
         }
         Adapter = new FirestoreRecyclerAdapter<commentModel, commentViewHolder>(Options) {
             @NonNull
@@ -81,7 +84,8 @@ String image;
               }else {
                   commentViewHolder.othersname.setText(commentModel.othersname);
               }
-                Picasso.get().load(commentModel.othersprofilepic).into(commentViewHolder.othersprofilepic);
+                    Picasso.get().load(commentModel.othersprofilepic).into(commentViewHolder.othersprofilepic);
+
                 commentViewHolder.othercomments.setText(commentModel.othercomments);
             }
 
@@ -111,7 +115,7 @@ String image;
                     if (firebaseAuth.getCurrentUser() !=null) {
                          model = new commentModel(firebaseAuth.getCurrentUser().getDisplayName(), comments, image, firebaseAuth.getUid(), new Timestamp(new Date()));
                     }else {
-                         model = new commentModel("Anonymous", comments, null, null, new Timestamp(new Date()));
+                         model = new commentModel("Anonymous", comments, image, null, new Timestamp(new Date()));
                     }
                     firebaseFirestore.collection("GlobalChat").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -136,6 +140,9 @@ String image;
                         HashMap<String, Object> m = new HashMap<>();
                         m.put("Details", snapshot.getData().get("ProfilePic"));
                         image = m.get("Details").toString();
+                        Picasso.get().load(image).into(profileimage);
+                    }
+                    else {
                         Picasso.get().load(image).into(profileimage);
                     }
                 }

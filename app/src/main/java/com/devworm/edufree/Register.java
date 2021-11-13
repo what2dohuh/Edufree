@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class Register extends AppCompatActivity {
 EditText name,gmail,password;
 Button register;
 TextView gotologin;
+ImageButton backreg;
 FirebaseAuth firebaseAuth;
 FirebaseFirestore firebaseFirestore;
     @Override
@@ -39,11 +42,23 @@ FirebaseFirestore firebaseFirestore;
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Signing Up :");
         progressDialog.setCancelable(false);
-
+        gotologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
+            }
+        });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
         Registerfun(progressDialog);
+            }
+        });
+        backreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
@@ -96,18 +111,14 @@ FirebaseFirestore firebaseFirestore;
                 }
             });
         }
-        gotologin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Login.class));
-            }
-        });
+
     }
 
     private void initial() {
         gotologin=findViewById(R.id.gotologin);
         register=findViewById(R.id.register);
         password=findViewById(R.id.password);
+        backreg=findViewById(R.id.backreg);
         name=findViewById(R.id.name);
         gmail=findViewById(R.id.gmail);
     }

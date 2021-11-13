@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class Login extends AppCompatActivity {
 TextView gotoregister;
 EditText gmaillogin,passwordlogin;
 Button login;
+ImageButton backlog;
 FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,12 @@ FirebaseAuth firebaseAuth;
             }
         });
         LogingFun();
-
+        backlog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();;
+            }
+        });
     }
 
     private void LogingFun() {
@@ -74,6 +81,7 @@ FirebaseAuth firebaseAuth;
     private void initial() {
         gotoregister = findViewById(R.id.gotoregister);
         gmaillogin = findViewById(R.id.gmaillogin);
+        backlog = findViewById(R.id.backlog);
         passwordlogin = findViewById(R.id.passwordlogin);
         login = findViewById(R.id.login);
     }

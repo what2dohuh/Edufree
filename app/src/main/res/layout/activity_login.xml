@@ -11,14 +11,22 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
         android:fontFamily="@font/comfortaamedium"
         android:text="Login"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/backlog" />
+
+    <ImageButton
+        android:id="@+id/backlog"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -51,7 +59,7 @@
                 android:layout_height="5dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@android:color/black" />
+                android:background="#0D1160" />
 
             <TextView
                 android:id="@+id/textView7"

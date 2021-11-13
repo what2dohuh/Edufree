@@ -153,6 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|bottom"
+                        android:fontFamily="@font/latoregular"
                         android:text="Ethical Hacking"
                         android:textColor="#000000"
                         android:textSize="14sp" />
@@ -181,6 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|bottom"
+                        android:fontFamily="@font/latoregular"
                         android:text="Android Dev"
                         android:textColor="#000000"
                         android:textSize="14sp" />
@@ -216,7 +218,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|bottom"
-                        android:text="Project wrok(code)"
+                        android:fontFamily="@font/latoregular"
+                        android:text="Project work(code)"
                         android:textColor="#000000"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
@@ -251,6 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|bottom"
+                        android:fontFamily="@font/latoregular"
                         android:text="Web Dev"
                         android:textColor="#000000"
                         android:textSize="14sp" />
@@ -280,6 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|bottom"
                         android:layout_margin="2dp"
+                        android:fontFamily="@font/latoregular"
                         android:text=" Business and Marketing"
                         android:textColor="#000000"
                         android:textSize="14sp" />
@@ -300,13 +305,14 @@
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textView12"
+    <ImageButton
+        android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="🙌"
-        app:layout_constraintBaseline_toBaselineOf="@+id/greeting"
-        app:layout_constraintStart_toEndOf="@+id/greeting" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_pan_tool_24"
+        app:layout_constraintBottom_toBottomOf="@+id/greeting"
+        app:layout_constraintStart_toEndOf="@+id/greeting"
+        app:layout_constraintTop_toTopOf="@+id/greeting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

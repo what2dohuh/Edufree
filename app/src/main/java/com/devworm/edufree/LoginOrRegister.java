@@ -25,14 +25,13 @@ Button Logingbtn,Registerbtn;
            @Override
            public void onClick(View v) {
                startActivity(new Intent(getApplicationContext(),Register.class));
-               finish();
+
            }
        });
        Logingbtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                startActivity(new Intent(getApplicationContext(),Login.class));
-               finish();
            }
        });
        skip.setOnClickListener(new View.OnClickListener() {

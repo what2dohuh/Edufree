@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,7 +42,8 @@ public class Comment extends AppCompatActivity {
 RecyclerView recyclerView;
 EditText yourcommentglobal2;
 ImageButton sendbtn2;
-ImageView profileimage2,empty;
+LottieAnimationView empty;
+ImageView profileimage2;
 TextView textView11;
 FirebaseAuth firebaseAuth;
 Intent intent;
@@ -55,6 +57,7 @@ String image;
         setContentView(R.layout.activity_comment);
 
         initial();
+        image = "https://firebasestorage.googleapis.com/v0/b/edufreeteam1.appspot.com/o/image%2Feithicalhacking.png?alt=media&token=324f7542-6556-40ac-be44-c592707bb4cf";
         backbtninviewactivity2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +112,7 @@ String image;
         sendbtn2 = findViewById(R.id.sendbtn2);
         textView11 = findViewById(R.id.textView11);
         backbtninviewactivity2 = findViewById(R.id.backbtninviewactivity2);
-        empty = findViewById(R.id.empty);
+        empty = findViewById(R.id.animationView);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         textView11.setText(intent.getStringExtra("nameofthecourse"));
@@ -137,6 +140,8 @@ String image;
                         HashMap<String, Object> m = new HashMap<>();
                         m.put("Details", snapshot.getData().get("ProfilePic"));
                         image = m.get("Details").toString();
+                        Picasso.get().load(image).into(profileimage2);
+                    } else {
                         Picasso.get().load(image).into(profileimage2);
                     }
                 }
