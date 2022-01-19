@@ -26,12 +26,12 @@ app:cnb_unselectedColor="#666666">
     app:cnb_iconColor="#FFFFFF"
     app:cnb_iconTintMode="src_in"
     app:cnb_textColor="#FFFFFF" />
-<item
-    android:id="@+id/account"
-    android:icon="@drawable/ic_baseline_account_box_24"
-    android:title="Account"
-    app:cnb_backgroundColor="#000000"
-    app:cnb_iconColor="#FFFFFF"
-    app:cnb_iconTintMode="src_in"
-    app:cnb_textColor="#FFFFFF" />
+    <item
+        android:id="@+id/blog"
+        android:icon="@drawable/ic_baseline_chrome_reader_mode_24"
+        android:title="Blog"
+        app:cnb_backgroundColor="#000000"
+        app:cnb_iconColor="#FFFFFF"
+        app:cnb_iconTintMode="src_in"
+        app:cnb_textColor="#FFFFFF" />
 </menu>

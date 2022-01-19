@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,8 +95,13 @@ String image;
                 globalchatrec.post(new Runnable() {
                     @Override
                     public void run() {
-                        globalchatrec.smoothScrollToPosition(Adapter.getItemCount());
-                    }
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                globalchatrec.smoothScrollToPosition(Adapter.getItemCount());
+                            }
+                        },300);
+                       }
                 });
 
             }
@@ -115,7 +121,7 @@ String image;
                     if (firebaseAuth.getCurrentUser() !=null) {
                          model = new commentModel(firebaseAuth.getCurrentUser().getDisplayName(), comments, image, firebaseAuth.getUid(), new Timestamp(new Date()));
                     }else {
-                         model = new commentModel("Anonymous", comments, image, null, new Timestamp(new Date()));
+                         model = new commentModel("Anonymous:", comments, image, null, new Timestamp(new Date()));
                     }
                     firebaseFirestore.collection("GlobalChat").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -150,7 +156,24 @@ String image;
         });
     }
 
+    private void showpropicinChat() {
+        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).collection("Details").document("lol").
+                get().addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                if (snapshot != null) {
+                    if (snapshot.get("ProfilePic") != null) {
+                        HashMap<String, Object> m = new HashMap<>();
+                        m.put("Details", snapshot.getData().get("ProfilePic"));
+                        image = m.get("Details").toString();
+                        Picasso.get().load(image).into(profileimage);
+                    }
+                }
+            }
+        });
 
+
+    }
     private void initial(View v) {
         profileimage = v.findViewById(R.id.profileimage);
         globalchatrec = v.findViewById(R.id.globalchatrec);

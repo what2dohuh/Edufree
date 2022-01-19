@@ -1,12 +1,10 @@
 package com.devworm.edufree;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.widget.FrameLayout;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +14,6 @@ ChipNavigationBar bottomNavigationView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getSupportActionBar().hide();
         initialize(savedInstanceState);
     }
     private void initialize(Bundle savedInstanceState) {
@@ -30,8 +27,8 @@ ChipNavigationBar bottomNavigationView;
             public void onItemSelected(int i) {
                 Fragment temp = null;
                 switch (i) {
-                    case R.id.account:
-                        temp = new AccountFragment();
+                    case R.id.blog:
+                        temp = new BlogFragment();
                         break;
                     case R.id.home:
                         temp = new HomeFragment();

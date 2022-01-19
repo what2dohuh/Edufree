@@ -64,6 +64,12 @@ Boolean save = false;
         }else {
             greeting.setText("User");
         }
+        profileimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),AcountAtivity.class));
+            }
+        });
         androiddev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,5 +276,7 @@ Boolean save = false;
                 }
             }
         });
+
+
     }
 }
