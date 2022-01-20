@@ -16,11 +16,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.Date;
+import java.util.HashMap;
 
 public class UploadBlog extends AppCompatActivity {
     EditText writeBlog,title;
@@ -31,6 +37,7 @@ public class UploadBlog extends AppCompatActivity {
     StorageReference storageReference;
     Uri blogThubnail;
     CardView viewCard;
+    FirebaseAuth firebaseAuth;
     String link;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class UploadBlog extends AppCompatActivity {
                     Toast.makeText(UploadBlog.this, "Write Somethings", Toast.LENGTH_SHORT).show();
                 }
                 else {
+
                     if (blogThubnail !=null ) {
                      if (!blogThubnail.toString().isEmpty()) {
                         UploadImage();
@@ -51,6 +59,7 @@ public class UploadBlog extends AppCompatActivity {
                 }else {
                        UploadFinal(link);
                     }
+
                 }
 
             }
@@ -101,8 +110,8 @@ public class UploadBlog extends AppCompatActivity {
     }
 
     private void UploadFinal(String linkI) {
-        modeBlog model = new modeBlog(writeBlog.getText().toString(), title.getText().toString(), linkI);
-        firebaseFirestore.collection("Blog").document("AllBlog").collection(title.getText().toString()).add(model);
+        modeBlog model = new modeBlog(writeBlog.getText().toString(), title.getText().toString(), linkI, firebaseAuth.getCurrentUser().getUid(),new Timestamp(new Date()));
+        firebaseFirestore.collection("Blog").document(title.getText().toString()).set(model);
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }
@@ -127,6 +136,7 @@ public class UploadBlog extends AppCompatActivity {
 
     private void initial() {
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         writeBlog = findViewById(R.id.writeBlog);
         backbtn = findViewById(R.id.backbtn);
         viewCard = findViewById(R.id.viewuserimage);

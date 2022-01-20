@@ -24,3 +24,16 @@ public class mViewHolder extends RecyclerView.ViewHolder {
         savecourse = itemView.findViewById(R.id.savecourse);
     }
 }
+class viewHolder extends RecyclerView.ViewHolder{
+    TextView userName,Title,BlogText,time;
+    ImageView profileimage,thumb;
+    public viewHolder(@NonNull View itemView) {
+        super(itemView);
+        userName=itemView.findViewById(R.id.userName);
+        Title=itemView.findViewById(R.id.Title);
+        BlogText=itemView.findViewById(R.id.BlogText);
+        time=itemView.findViewById(R.id.time);
+        thumb=itemView.findViewById(R.id.thumbB);
+        profileimage=itemView.findViewById(R.id.profileimage);
+    }
+}
