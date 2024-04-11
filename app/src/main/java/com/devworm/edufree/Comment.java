@@ -67,7 +67,7 @@ String image;
         if (firebaseAuth.getCurrentUser() != null) {
             showpropic();
         }
-        Query query = firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).collection("Comments").orderBy("timestamp",Query.Direction.ASCENDING);
+        Query query = firebaseFirestore.collection(intent.getStringExtra("Type")).document(intent.getStringExtra("nameofthecourse")).collection("Comments").orderBy("timestamp",Query.Direction.ASCENDING);
 
         final FirestoreRecyclerOptions<commentModel> Options = new FirestoreRecyclerOptions.Builder<commentModel>()
                 .setQuery(query, commentModel.class)
@@ -122,7 +122,7 @@ String image;
         String comments = yourcommentglobal2.getText().toString();
         if (!comments.replaceAll("\\s","").isEmpty()) {
             commentModel model = new commentModel(firebaseAuth.getCurrentUser().getDisplayName(), comments, image, firebaseAuth.getUid(), new Timestamp(new Date()));
-            firebaseFirestore.collection("Stuff").document(intent.getStringExtra("nameofthecourse")).collection("Comments").add(model);
+            firebaseFirestore.collection(intent.getStringExtra("Type")).document(intent.getStringExtra("nameofthecourse")).collection("Comments").add(model);
             Adapter.startListening();
             recyclerView.smoothScrollToPosition(Adapter.getItemCount());
         }

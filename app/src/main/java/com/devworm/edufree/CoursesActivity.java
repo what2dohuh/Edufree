@@ -94,7 +94,7 @@ Boolean save;
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(),Comment.class);
-                        intent.putExtra("about",model.about);
+                        intent.putExtra("Type","Stuff");
                         intent.putExtra("nameofthecourse",model.nameofthecourse);
                         startActivity(intent);
                     }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewImage"></activity>
+        <activity android:name=".BlogReadMore"></activity>
+        <activity android:name=".ViewImage" />
         <activity android:name=".UploadBlog" />
         <activity android:name=".AcountAtivity" />
         <activity android:name=".LoginOrRegister" />

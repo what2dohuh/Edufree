@@ -31,12 +31,12 @@ import java.util.HashMap;
 public class Admin extends AppCompatActivity {
 LinearLayout Thubnail;
 EditText nameofcourseadmin,About,Link;
-CheckBox Androiddev,Ethicalhacking,Project,Webdev,Businessandmarketing;
+CheckBox Androiddev,Ethicalhacking,Project,Webdev,Businessandmarketing,Creative;
 Button Upload;
 FirebaseFirestore firebaseFirestore;
 Uri CourseThubnail,Final;
 StorageReference storageReference;
-boolean androiddev,ethicalhacking,project,webdev,businessandmarketing;
+boolean androiddev,ethicalhacking,project,webdev,businessandmarketing,creative;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +51,11 @@ boolean androiddev,ethicalhacking,project,webdev,businessandmarketing;
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 androiddev = isChecked;
+            }
+        });  Creative.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                creative = isChecked;
             }
         });
         Ethicalhacking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,41 +118,32 @@ boolean androiddev,ethicalhacking,project,webdev,businessandmarketing;
                     @Override
                     public void onSuccess(Uri uri) {
                         Final = uri;
-                        final StorageReference uploaderimage = storageReference.child("image/"+"img"+System.currentTimeMillis());
-                        uploaderimage.putFile(CourseThubnail).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                uploaderimage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        String nameofcourse = nameofcourseadmin.getText().toString();
-                                        String link = Link.getText().toString();
+                        String nameofcourse = nameofcourseadmin.getText().toString();
+                        String link = Link.getText().toString();
 
-                                        String child = "";
-                                        if(androiddev){
-                                            child = "AndroidDev";
-                                        }
-                                        if(ethicalhacking){
-                                            child = "EthicalHacking";
-                                        }
-                                        if(project){
-                                            child = "Projects";
-                                        }
-                                        if (webdev){
-                                            child = "WebDev";
-                                        }
-                                        if (businessandmarketing){
-                                            child = "BusinessAndMarketing";
-                                        }
-                                        progressDialog.dismiss();
-                                        Model model= new Model(nameofcourse,uri.toString(),link,nameofcourse.toLowerCase().replaceAll("\\s+", ""),child,About.getText().toString());
-                                        firebaseFirestore.collection("Courses").document("Categories").collection(child).add(model);
-                                        firebaseFirestore.collection("Courses").document("Categories").collection("All").add(model);
-                                    }
-                                });
-                            }
-                        });
-
+                        String child = "";
+                        if (androiddev) {
+                            child = "AndroidDev";
+                        }
+                        if (ethicalhacking) {
+                            child = "EthicalHacking";
+                        }
+                        if (project) {
+                            child = "Projects";
+                        }
+                        if (webdev) {
+                            child = "WebDev";
+                        }
+                        if (businessandmarketing) {
+                            child = "BusinessAndMarketing";
+                        }
+                        if (creative) {
+                            child = "Creative";
+                        }
+                        progressDialog.dismiss();
+                        Model model = new Model(nameofcourse, uri.toString(), link, nameofcourse.toLowerCase().replaceAll("\\s+", ""), child, About.getText().toString());
+                        firebaseFirestore.collection("Courses").document("Categories").collection(child).add(model);
+                        firebaseFirestore.collection("Courses").document("Categories").collection("All").add(model);
                     }
                 });
             }
@@ -160,6 +156,7 @@ boolean androiddev,ethicalhacking,project,webdev,businessandmarketing;
         Thubnail = findViewById(R.id.Thubnail);
         About = findViewById(R.id.About);
         Link = findViewById(R.id.Link);
+        Creative = findViewById(R.id.Creative);
         Androiddev = findViewById(R.id.Androiddev);
         Ethicalhacking = findViewById(R.id.Ethicalhacking);
         Project = findViewById(R.id.Project);

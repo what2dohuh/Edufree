@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
-CardView androiddev,ethicalhacking,projects,webdev,businessandmarketing;
+CardView androiddev,ethicalhacking,projects,webdev,businessandmarketing,creative;
 TextView greeting;
 EditText searchinhome;
 FloatingActionButton floatingActionButton;
@@ -75,6 +76,13 @@ Boolean save = false;
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),CoursesActivity.class);
                 intent.putExtra("categories","AndroidDev");
+                startActivity(intent);
+            }
+        }); creative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),CoursesActivity.class);
+                intent.putExtra("categories","Creative");
                 startActivity(intent);
             }
         }); ethicalhacking.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +141,14 @@ Boolean save = false;
 
             }
         });
+        VisitOurWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("https://edufreeteam1.web.app"));
+                startActivity(i);
+            }
+        });
         return v;
     }
 
@@ -173,7 +189,7 @@ Boolean save = false;
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), Comment.class);
-                            intent.putExtra("about", model.about);
+                            intent.putExtra("Type","Stuff");
                             intent.putExtra("nameofthecourse", model.nameofthecourse);
                             startActivity(intent);
                         }
@@ -252,6 +268,7 @@ Boolean save = false;
         ethicalhacking = v.findViewById(R.id.ethicalhacking);
         projects = v.findViewById(R.id.projects);
         webdev = v.findViewById(R.id.webdev);
+        creative = v.findViewById(R.id.creative);
         floatingActionButton = v.findViewById(R.id.floatingActionButton);
         businessandmarketing = v.findViewById(R.id.businessandmarketing);
         greeting = v.findViewById(R.id.greeting);

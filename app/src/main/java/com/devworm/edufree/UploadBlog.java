@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class UploadBlog extends AppCompatActivity {
     StorageReference storageReference;
     Uri blogThubnail;
     CardView viewCard;
+    ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     String link;
     @Override
@@ -44,6 +46,9 @@ public class UploadBlog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_blog);
         initial();
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setCancelable(false);
+
         sendFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,10 +56,10 @@ public class UploadBlog extends AppCompatActivity {
                     Toast.makeText(UploadBlog.this, "Write Somethings", Toast.LENGTH_SHORT).show();
                 }
                 else {
-
                     if (blogThubnail !=null ) {
                      if (!blogThubnail.toString().isEmpty()) {
-                        UploadImage();
+                         progressDialog.show();
+                        UploadImage(progressDialog);
                     }
                 }else {
                        UploadFinal(link);
@@ -91,9 +96,9 @@ public class UploadBlog extends AppCompatActivity {
         });
     }
 
-    private void UploadImage() {
+    private void UploadImage(final ProgressDialog progressDialog) {
         storageReference = FirebaseStorage.getInstance().getReference();
-        final StorageReference uploader = storageReference.child("Thumbnail;/"+"thumbnail"+System.currentTimeMillis());
+        final StorageReference uploader = storageReference.child("Blogimg/"+"blogimg"+System.currentTimeMillis());
         uploader.putFile(blogThubnail).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -102,7 +107,7 @@ public class UploadBlog extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         link = uri.toString();
                         UploadFinal(link);
-
+                        progressDialog.dismiss();
                     }
                 });
             }

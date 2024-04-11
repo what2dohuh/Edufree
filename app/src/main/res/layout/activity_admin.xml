@@ -139,6 +139,12 @@
                         android:text="Ethical Hacking" />
 
                     <CheckBox
+                        android:id="@+id/Creative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:text="Creative" />
+                    <CheckBox
                         android:id="@+id/Project"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

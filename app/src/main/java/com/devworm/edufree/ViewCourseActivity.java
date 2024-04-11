@@ -96,7 +96,9 @@ String name,image,link,search,category,about;
         visitOurWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewCourseActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("https://edufreeteam1.web.app"));
+                startActivity(i);
             }
         });
     }

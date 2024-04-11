@@ -71,8 +71,13 @@ public class BlogFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull final viewHolder mViewHolder, int i, @NonNull final modeBlog model) {
                  mViewHolder.Title.setText(model.getTitle());
-                 mViewHolder.BlogText.setText(model.getWiteBAlog());
-               if (model.getId() != null) {
+                 if (model.getWiteBAlog().length()<70){
+                     mViewHolder.BlogText.setText(model.getWiteBAlog());
+                 }
+                 else {
+                     mViewHolder.BlogText.setText(model.getWiteBAlog().substring(0,90) + "...Read More");
+                 }
+                 if (model.getId() != null) {
                    firebaseFirestore.collection("Users").document(model.getId()).collection("Details").document("lol").
                            get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                        @Override
@@ -93,8 +98,31 @@ public class BlogFragment extends Fragment {
                        }
                    });
                }
-                CharSequence date = DateFormat.format("EEEE,MMM d,yyyy,h:mm:ss a ", model.timestamp.toDate());
+                mViewHolder.commentBlog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), Comment.class);
+                       intent.putExtra("nameofthecourse", model.getTitle());
+                       intent.putExtra("Type","BlogComt");
+                        startActivity(intent);
+                    }
+                });
+
+                final CharSequence date = DateFormat.format("EEEE,MMM d,yyyy,h:mm:ss a ", model.timestamp.toDate());
                 mViewHolder.time.setText(date);
+                mViewHolder.blogConst.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), BlogReadMore.class);
+                        intent.putExtra("title", model.getTitle());
+                        intent.putExtra("Type","BlogComt");
+                        intent.putExtra("theBlog",model.getWiteBAlog());
+                        intent.putExtra("image",model.getImageUrl());
+                        intent.putExtra("Timestamp",date);
+
+                        startActivity(intent);
+                    }
+                });
                 if (model.getImageUrl() != null) {
                     Picasso.get().load(model.getImageUrl()).into(mViewHolder.thumb);
                 }

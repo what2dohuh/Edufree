@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class mViewHolder extends RecyclerView.ViewHolder {
@@ -27,12 +28,16 @@ public class mViewHolder extends RecyclerView.ViewHolder {
 class viewHolder extends RecyclerView.ViewHolder{
     TextView userName,Title,BlogText,time;
     ImageView profileimage,thumb;
+    ImageButton commentBlog;
+    ConstraintLayout blogConst;
     public viewHolder(@NonNull View itemView) {
         super(itemView);
         userName=itemView.findViewById(R.id.userName);
         Title=itemView.findViewById(R.id.Title);
         BlogText=itemView.findViewById(R.id.BlogText);
+        blogConst=itemView.findViewById(R.id.blogConst);
         time=itemView.findViewById(R.id.time);
+        commentBlog=itemView.findViewById(R.id.commentBlog);
         thumb=itemView.findViewById(R.id.thumbB);
         profileimage=itemView.findViewById(R.id.profileimage);
     }
